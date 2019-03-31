@@ -43,9 +43,11 @@ def load_config(filename):
     """Load config from the specified file and return the parsed config"""
     # Get a path to the file. If it was specified, it should be fine.
     # If it was not specified, assume it's config.ini in the script's dir.
-    config_dir = appdirs.user_config_dir("telegram-export")
+    if os.path.isfile('config.ini'):
+        filename = os.path.join(os.getcwd(), 'config.ini')
 
     if not filename:
+        config_dir = appdirs.user_config_dir("telegram-export")
         filename = os.path.join(config_dir, 'config.ini')
 
     if not os.path.isfile(filename):

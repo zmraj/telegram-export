@@ -41,6 +41,12 @@ COMMON_MIME_TO_EXTENSION = {
     'video/mp4': '.mp4',  # To avoid ".m4v"
 }
 
+FROM_TYPES = {
+    'group': types.Chat,
+    'user': types.User,
+    'channel': types.Channel
+}
+
 
 def encode_msg_entities(entities):
     """
