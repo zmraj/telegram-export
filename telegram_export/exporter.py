@@ -83,7 +83,6 @@ class Exporter:
                 await self.downloader.start(entity)
         elif 'FromType' in self.dumper.config:
             for dialog in await self.client.get_dialogs(limit=None):
-                # self.logger.info(type(dialog.entity))
                 from_types = tuple(FROM_TYPES[elem.strip()] for elem in self.dumper.config['FromType'].split(','))
                 if isinstance(dialog.entity, from_types):
                     await self.downloader.start(dialog.entity)
