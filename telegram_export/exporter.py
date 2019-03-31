@@ -2,10 +2,10 @@
 
 import logging
 import re
-
+from telethon.tl import types
 from async_generator import yield_, async_generator
 from telethon import utils
-
+from telegram_export.utils import FROM_TYPES
 from .downloader import Downloader
 
 
@@ -31,6 +31,10 @@ async def get_entities_iter(mode, in_list, client):
     # TODO change None to empty blacklist?
     mode = mode.lower()
     if mode == 'whitelist':
+        assert client is not None
+        async for ent in entities_from_str(client.get_input_entity, in_list):
+            await yield_(ent)
+    if mode == 'from_type':
         assert client is not None
         async for ent in entities_from_str(client.get_input_entity, in_list):
             await yield_(ent)
@@ -77,6 +81,12 @@ class Exporter:
                                                   self.dumper.config['Blacklist'],
                                                   self.client):
                 await self.downloader.start(entity)
+        elif 'FromType' in self.dumper.config:
+            for dialog in await self.client.get_dialogs(limit=None):
+                # self.logger.info(type(dialog.entity))
+                from_types = tuple(FROM_TYPES[elem.strip()] for elem in self.dumper.config['FromType'].split(','))
+                if isinstance(dialog.entity, from_types):
+                    await self.downloader.start(dialog.entity)
         else:
             # Neither blacklist nor whitelist - get all
             for dialog in await self.client.get_dialogs(limit=None):
