@@ -323,7 +323,8 @@ class Dumper:
                utils.encode_msg_entities(message.entities),
                None,
                0)  # No MessageAction
-
+        print('fucking row: %s' % (row,))
+        logger.info('fucking row: %s' % (row, ))
         for callback in self._dump_callbacks['message']:
             callback(row)
 
@@ -831,6 +832,8 @@ class Dumper:
         given tuple of values into the given table.
         """
         try:
+            print('in insert!')
+            print(values)
             fmt = ','.join('?' * len(values))
             c = self.conn.execute("INSERT OR REPLACE INTO {} VALUES ({})"
                                   .format(into, fmt), values)
