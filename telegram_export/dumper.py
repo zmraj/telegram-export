@@ -322,7 +322,7 @@ class Dumper:
                media_id,
                utils.encode_msg_entities(message.entities),
                None,
-               None)  # No MessageAction
+               0)  # No MessageAction
         for callback in self._dump_callbacks['message']:
             callback(row)
 
@@ -351,7 +351,7 @@ class Dumper:
                media_id,  # Might have e.g. a new chat Photo
                None,  # No entities
                name,
-               None)
+               0)
 
         for callback in self._dump_callbacks['message_service']:
             callback(row)
