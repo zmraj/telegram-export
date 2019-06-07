@@ -196,6 +196,7 @@ class Dumper:
                       "MediaID INT,"
                       "Formatting TEXT,"  # e.g. bold, italic, etc.
                       "ServiceAction TEXT,"  # friendly name of action if it is
+                      "IsProcessed TEXT,"  # friendly name of action if it is
                       # a MessageService
                       "FOREIGN KEY (ForwardID) REFERENCES Forward(ID),"
                       "FOREIGN KEY (MediaID) REFERENCES Media(ID),"
@@ -320,7 +321,8 @@ class Dumper:
                message.views,
                media_id,
                utils.encode_msg_entities(message.entities),
-               None)  # No MessageAction
+               None,
+               0)  # No MessageAction
 
         for callback in self._dump_callbacks['message']:
             callback(row)
