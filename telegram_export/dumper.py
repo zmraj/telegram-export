@@ -196,7 +196,7 @@ class Dumper:
                       "MediaID INT,"
                       "Formatting TEXT,"  # e.g. bold, italic, etc.
                       "ServiceAction TEXT,"  # friendly name of action if it is
-                      "IsProcessed TEXT,"  # friendly name of action if it is
+                      "IsProcessed INT,"  # is Processed
                       # a MessageService
                       "FOREIGN KEY (ForwardID) REFERENCES Forward(ID),"
                       "FOREIGN KEY (MediaID) REFERENCES Media(ID),"
