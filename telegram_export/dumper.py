@@ -352,7 +352,8 @@ class Dumper:
                None,  # No views
                media_id,  # Might have e.g. a new chat Photo
                None,  # No entities
-               name)
+               name,
+               0)
 
         for callback in self._dump_callbacks['message_service']:
             callback(row)
