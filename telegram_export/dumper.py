@@ -832,8 +832,8 @@ class Dumper:
         given tuple of values into the given table.
         """
         try:
-            print('in insert!')
-            print(values)
+            logger.info('in insert!')
+            logger.info(values)
             fmt = ','.join('?' * len(values))
             c = self.conn.execute("INSERT OR REPLACE INTO {} VALUES ({})"
                                   .format(into, fmt), values)
